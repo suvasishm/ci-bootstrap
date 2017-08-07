@@ -1,6 +1,6 @@
 <?php
 
-Class User_Authentication extends CI_Controller {
+Class User extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
@@ -19,8 +19,14 @@ Class User_Authentication extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 
+	public function load_admin_page() {
+		$this->load->view('template/header');
+		$this->load->view('admin_page');
+		$this->load->view('template/footer');
+	}
+
 	// Validate and store registration data in database
-	public function new_user_registration() {
+	public function registration() {
 		// Check validation for user input in SignUp form
 		$this->form_validation->set_rules('fname', 'First Name', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('lname', 'Last Name', 'trim|required|xss_clean');
@@ -52,13 +58,13 @@ Class User_Authentication extends CI_Controller {
 	}
 
 	// Check for user login process
-	public function user_login_process() {
+	public function login() {
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
 
 		if ($this->form_validation->run() == FALSE) {
 			if (isset($this->session->userdata['logged_in'])) {
-				$this->load->view('admin_page');
+				$this->load_admin_page();
 			} else {
 				$this->index();
 			}
@@ -78,7 +84,7 @@ Class User_Authentication extends CI_Controller {
 					);
 					// Add user data in session
 					$this->session->set_userdata('logged_in', $session_data);
-					$this->load->view('admin_page');
+					$this->load_admin_page();
 				}
 			} else {
 				$data = array(

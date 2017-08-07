@@ -3,7 +3,7 @@
 	<?php
 	if (isset($this->session->userdata['logged_in'])) {
 
-		header("location: http://localhost/login");
+		//header("location: http://localhost/home");
 	}
 	?>
 	<head>
