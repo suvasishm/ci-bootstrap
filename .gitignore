@@ -22,7 +22,10 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 .idea/*
 
 # CI User Guide
-user_guide/*
+user_guide*
+
+#bkp folders
+bkp*
 
 ## Sublime Text cache files
 *.tmlanguage.cache
