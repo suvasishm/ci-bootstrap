@@ -44,7 +44,7 @@ Class User extends CI_Controller {
 				'fname' => $this->input->post('fname'),
 				'lname' => $this->input->post('lname'),
 				'email' => $this->input->post('email'),
-				'password' => $this->input->post('password'),
+				'password' => md5($this->input->post('password'))
 			);
 			$result = $this->login_model->registration_insert($data);
 			if ($result == TRUE) {
@@ -71,7 +71,7 @@ Class User extends CI_Controller {
 		} else {
 			$data = array(
 				'email' => $this->input->post('email'),
-				'password' => $this->input->post('password'),
+				'password' => md5($this->input->post('password'))
 			);
 			$result = $this->login_model->login($data);
 			if ($result == TRUE) {
