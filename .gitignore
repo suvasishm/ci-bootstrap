@@ -33,3 +33,6 @@ bkp*
 *.stTheme.cache
 *.sublime-workspace
 *.sublime-project
+
+## exclude
+wamp/*
