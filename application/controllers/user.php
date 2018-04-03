@@ -4,7 +4,7 @@ Class User extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('login_model');
+		//$this->load->model('user_model');
 	}
 
 	// Show login page
@@ -15,7 +15,7 @@ Class User extends CI_Controller {
 
 	public function load_login_form($data) {
 		$this->load->view('template/header', $data);
-		$this->load->view('login_form');
+		$this->load->view('forms/login_form');
 		$this->load->view('template/footer');
 	}
 
@@ -28,8 +28,7 @@ Class User extends CI_Controller {
 	// Validate and store registration data in database
 	public function registration() {
 		// Check validation for user input in SignUp form
-		$this->form_validation->set_rules('fname', 'First Name', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('lname', 'Last Name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('name', 'Name', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('confirm-password', 'Confirm Password', 'trim|required|xss_clean');
@@ -41,13 +40,12 @@ Class User extends CI_Controller {
 			$this->load_login_form($data);
 		} else {
 			$data = array(
-				'fname' => $this->input->post('fname'),
-				'lname' => $this->input->post('lname'),
+				'name' => $this->input->post('name'),
 				'email' => $this->input->post('email'),
 				'password' => md5($this->input->post('password'))
 			);
-			$result = $this->login_model->registration_insert($data);
-			if ($result == TRUE) {
+			$result = $this->user_model->user_insert($data);
+			if ($result > 1) {
 				$data['message_display'] = 'Registration Successfully !';
 				$this->load_login_form($data);
 			} else {
@@ -73,11 +71,11 @@ Class User extends CI_Controller {
 				'email' => $this->input->post('email'),
 				'password' => md5($this->input->post('password'))
 			);
-			$result = $this->login_model->login($data);
+			$result = $this->user_model->login($data);
 			if ($result == TRUE) {
 
 				$email = $this->input->post('email');
-				$result = $this->login_model->read_user_information($email);
+				$result = $this->user_model->read_user_information($email);
 				if ($result != false) {
 					$session_data = array(
 						'email' => $result[0]->email,
@@ -99,10 +97,10 @@ Class User extends CI_Controller {
 	public function logout() {
 
 		// Removing session data
-		$sess_array = array(
+		$session_array = array(
 			'email' => '',
 		);
-		$this->session->unset_userdata('logged_in', $sess_array);
+		$this->session->unset_userdata('logged_in', $session_array);
 		$data['message_display'] = 'Successfully Logout';
 		$data['title'] = 'Logout';
 		$this->load_login_form($data);

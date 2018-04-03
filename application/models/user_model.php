@@ -1,9 +1,9 @@
 <?php
 
-Class Login_Model extends CI_Model {
+Class User_Model extends CI_Model {
 
 	// Insert registration data in database
-	public function registration_insert($data) {
+	public function user_insert($data) {
 
 		// Query to check whether username already exist or not
 		$condition = "email =" . "'" . $data['email'] . "'";
@@ -17,7 +17,7 @@ Class Login_Model extends CI_Model {
 			// Query to insert data in database
 			$this->db->insert('user', $data);
 			if ($this->db->affected_rows() > 0) {
-				return true;
+				return $this->db->insert_id();
 			}
 		} else {
 			return false;

@@ -55,5 +55,9 @@ $route['registration'] = 'user/registration';
 $route['logout'] = 'user/logout';
 $route['home'] = 'admin';
 
+// vendor
+$route['vendor/signup'] = 'vendor/signup';
+$route['vendor/register'] = 'vendor/register';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
