@@ -5,94 +5,84 @@
  * Time: 1:52 PM
  */
 
-class Vendor extends CI_Controller {
+class Vendor extends CI_Controller
+{
 
-	public function __construct() {
+	public function __construct()
+	{
 		parent::__construct();
-		$this->load->model('vendor_model');
+		//$this->load->model('vendor_model');
 	}
 
-	public function load_vendor_signup_form($data) {
+	public function load_vendor_signup_form($data)
+	{
 		$this->load->view('template/header', $data);
 		$this->load->view('forms/vendor_signup_form');
 		$this->load->view('template/footer');
 	}
 
-	public function signup() {
+	public function signup()
+	{
 		$data['message_display'] = 'Fill in details here';
 		$this->load_vendor_signup_form($data);
 	}
 
 	// Validate and store registration data in database
-	public function register() {
-		// Check validation for user input in SignUp form
-		/*$this->form_validation->set_rules('vendorName', 'First Name', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('lname', 'Last Name', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('confirm-password', 'Confirm Password', 'trim|required|xss_clean');*/
+	public function register()
+	{
+		// First, try to insert an entry into user table
 
-		/*if ($this->form_validation->run() == FALSE) {
-			$data = array(
-				'error_message' => 'Invalid data',
-			);
-			$this->signup($data);
-		} else {
-			$data = array(
-				'vendorName' => $this->input->post('vendorName'),
-				'vendor_email' => $this->input->post('vendorEmail'),
-				'mobile' => $this->input->post('vendorMobile')
-			);
-			$result = $this->vendor_general_model->register($data);
-			if ($result == TRUE) {
-				$data['message_display'] = 'Registration Successful!';
-				//$this->load_login_form($data);
-				print_r("Todo: Registration Successful!");
-			} else {
-				$data['message_display'] = 'Username already exist!';
-				$this->signup();
-				print_r("Todo: 'Username already exist!'");
-			}
-		}*/
-
-		$this->form_validation->set_rules('vendor_email', 'Email', 'trim|required|xss_clean');
-
-		// First, insert an entry into user table
+		// create user_model
 		$user_model = array(
 			'name' => $this->input->post('vendor_name'),
 			'email' => $this->input->post('vendor_email'),
 			'user_type' => USER_TYPE_VENDOR
 		);
-
-		// capture the new user id
+		// insert into user table
 		$user_id = $this->user_model->user_insert($user_model);
-
-		// Todo: if the above insert failed, no need to proceed
+		if (!$user_id) { // user with email already exists
+			$data['error_message'] = 'User with ' . $user_model['email'] . ' already exists. Use a different email id.';
+			$this->load_vendor_signup_form($data);
+			return false;
+		}
 
 		// Second, insert an entry into the following three tables
+
+		// populate field values
 		$vendor_general = $this->get_vendor_general_model($user_id);
 		$vendor_business = $this->get_vendor_business_model($user_id);
 		$vendor_finance = $this->get_vendor_finance_model($user_id);
 
-
-		// Todo: for each next calls, if one fails revert all previous steps
+		// insert into vendor tables
 		$result = $this->vendor_model->insert_vendor_general_details($vendor_general);
+		if (!$result) {
+			$this->abort_signup($user_id);
+			return false;
+		}
+
 		$result = $this->vendor_model->insert_vendor_business_details($vendor_business);
+		if (!$result) {
+			$this->abort_signup($user_id);
+			return false;
+		}
+
 		$result = $this->vendor_model->insert_vendor_finance_info($vendor_finance);
+		if (!$result) {
+			$this->abort_signup($user_id);
+			return false;
+		}
+	}
 
-
-		/*if ($result == TRUE) {
-			$data['message_display'] = 'Registration Successful!';
-			$this->load_vendor_signup_form($data);
-		} else {
-			$data['message_display'] = 'Username already exist!';
-			$this->load_vendor_signup_form($data);
-		}*/
+	private function abort_signup($user_id)
+	{
+		$this->user_model->user_delete($user_id);
+		$data['error_message'] = 'Something went wrong. Please try again later.';
+		$this->load_vendor_signup_form($data);
 	}
 
 
-	private function get_vendor_general_model($user_id) {
-		// Todo: Check validation
+	private function get_vendor_general_model($user_id)
+	{
 		$vendor_general_model = array(
 			'user_id' => $user_id,
 			'src_ref' => $this->input->post('src_ref'),
@@ -121,8 +111,8 @@ class Vendor extends CI_Controller {
 		return $vendor_general_model;
 	}
 
-	private function get_vendor_business_model($user_id) {
-		// Todo: Check validation
+	private function get_vendor_business_model($user_id)
+	{
 		$vendor_business_model = array(
 			'user_id' => $user_id,
 			'business_with_ngage' => $this->input->post('business_with_ngage'),
@@ -140,8 +130,8 @@ class Vendor extends CI_Controller {
 		return $vendor_business_model;
 	}
 
-	private function get_vendor_finance_model($user_id) {
-		// Todo: Check validation
+	private function get_vendor_finance_model($user_id)
+	{
 		$vendor_finance_model = array(
 			'user_id' => $user_id,
 			'bank_name' => $this->input->post('bank_name'),

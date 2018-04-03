@@ -1,32 +1,38 @@
 <?php
 
-Class User extends CI_Controller {
+Class User extends CI_Controller
+{
 
-	public function __construct() {
+	public function __construct()
+	{
 		parent::__construct();
 		//$this->load->model('user_model');
 	}
 
 	// Show login page
-	public function index() {
+	public function index()
+	{
 		$data['title'] = "Login/Registration";
 		$this->load_login_form($data);
 	}
 
-	public function load_login_form($data) {
+	public function load_login_form($data)
+	{
 		$this->load->view('template/header', $data);
 		$this->load->view('forms/login_form');
 		$this->load->view('template/footer');
 	}
 
-	public function load_admin_page() {
+	public function load_admin_page()
+	{
 		$this->load->view('template/header');
 		$this->load->view('admin_page');
 		$this->load->view('template/footer');
 	}
 
 	// Validate and store registration data in database
-	public function registration() {
+	public function registration()
+	{
 		// Check validation for user input in SignUp form
 		$this->form_validation->set_rules('name', 'Name', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean');
@@ -56,7 +62,8 @@ Class User extends CI_Controller {
 	}
 
 	// Check for user login process
-	public function login() {
+	public function login()
+	{
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
 
@@ -94,7 +101,8 @@ Class User extends CI_Controller {
 	}
 
 	// Logout from admin page
-	public function logout() {
+	public function logout()
+	{
 
 		// Removing session data
 		$session_array = array(

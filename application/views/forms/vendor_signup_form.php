@@ -1,10 +1,10 @@
 <?php
 // Todo: take care of display message and error message
-echo "<div class='info'>";
-if (isset($message_display)) {
-	echo $message_display;
+echo "<div class='alert-danger'>";
+if (isset($error_message)) {
+	echo $error_message;
 }
-echo "</div>";
+echo "</div><br/>";
 ?>
 
 <form name="vendor-signup-form" id="vendor-signup-form" action="/vendor/register" method="post" role="form">
