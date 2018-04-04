@@ -16,41 +16,23 @@ Class User_Model extends CI_Model
 		}
 
 		return false;
-		/*
-                // Query to check whether username already exist or not
-                $condition = "email =" . "'" . $data['email'] . "'";
-                $this->db->select('*');
-                $this->db->from('user');
-                $this->db->where($condition);
-                $this->db->limit(1);
-                $query = $this->db->get();
-                if ($query->num_rows() == 0) {
-
-                    // Query to insert data in database
-                    $this->db->insert('user', $data);
-                    if ($this->db->affected_rows() > 0) {
-                        return $this->db->insert_id();
-                    }
-                } else {
-                    return false;
-                }*/
 	}
 
-	// Read data using username and password
 	public function login($data)
 	{
 		$this->db->select('*');
 		$this->db->from('user');
 		$this->db->where('email', $data['email']);
 		$this->db->where('password', $data['password']);
+		$this->db->where('activation_status', 1);
 		$this->db->limit(1);
 		$query = $this->db->get();
 
 		if ($query->num_rows() == 1) {
-			return true;
-		} else {
-			return false;
+			return $query->result();
 		}
+
+		return false;
 	}
 
 	// Read data from database to show data in admin page
@@ -75,6 +57,24 @@ Class User_Model extends CI_Model
 		$this->db->where('user_id', $user_id);
 		$query = $this->db->delete($tables);
 		return $query;
+	}
+
+	public function get_user_type_name($id) {
+		$this->db->select('*');
+		$this->db->from('user_type');
+		$this->db->where('id', $id);
+		$this->db->limit(1);
+		$query = $this->db->get();
+
+		if ($query->num_rows() == 1) {
+			return ($query->result())[0]->type;
+		} else {
+			return false;
+		}
+	}
+
+	public static function get_user_type($id) {
+		return get_user_type_name($id);
 	}
 
 }

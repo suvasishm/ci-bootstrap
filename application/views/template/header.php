@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 	<?php
-	if (isset($this->session->userdata['logged_in'])) {
-
-		//header("location: http://localhost/home");
-	}
+	/*if ($this->session->logged_in) {
+		header("location: http://localhost/home");
+	}*/
 	?>
 	<head>
 		<meta charset="utf-8">
