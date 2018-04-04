@@ -3,12 +3,27 @@
 		<div class="row">
 			<div class="col-md-6 mx-auto">
 
+				<?php
+				echo "<div class='alert-success'>";
+				if (isset($message_display)) {
+					echo $message_display;
+				}
+				echo "</div><br/>";
+				?>
+
 				<!-- form card login -->
 				<div class="card rounded-0">
 					<div class="card-header">
 						<h3 class="mb-0">Login</h3>
 					</div>
 					<div class="card-body">
+						<?php
+						echo "<div class='alert-danger'>";
+						if (isset($error_message)) {
+							echo $error_message;
+						}
+						echo "</div><br/>";
+						?>
 						<form class="form" role="form" id="login-form" action="/login" method="POST">
 							<div class="form-group">
 								<label for="email">Username</label>

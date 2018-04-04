@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 02, 2018 at 06:33 AM
+-- Generation Time: Apr 04, 2018 at 03:59 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `mydb`
+-- Database: `ngage_db`
 --
 
 -- --------------------------------------------------------
@@ -43550,20 +43550,20 @@ INSERT INTO `region` (`id`, `country_id`, `region`) VALUES
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
   `user_type` int(1) NOT NULL,
   `activation_status` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`,`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`user_id`,`email`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `email`, `password`, `user_type`, `activation_status`) VALUES
+INSERT INTO `user` (`user_id`, `name`, `email`, `password`, `user_type`, `activation_status`) VALUES
 (1, 'Suvasish Mondal', 'suvasishmndl@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 1);
 
 -- --------------------------------------------------------
@@ -43583,8 +43583,9 @@ CREATE TABLE IF NOT EXISTS `user_type` (
 --
 
 INSERT INTO `user_type` (`id`, `type`) VALUES
-(1, 'admin'),
-(2, 'vendor');
+(1, 'SUPERADMIN'),
+(2, 'ADMIN'),
+(3, 'VENDOR');
 
 -- --------------------------------------------------------
 
@@ -43615,6 +43616,7 @@ CREATE TABLE IF NOT EXISTS `vendor_business_details` (
 
 DROP TABLE IF EXISTS `vendor_finance_info`;
 CREATE TABLE IF NOT EXISTS `vendor_finance_info` (
+  `user_id` int(11) NOT NULL,
   `bank_name` varchar(50) DEFAULT NULL,
   `ben_acc_name` varchar(50) DEFAULT NULL,
   `ben_acc_number` varchar(30) DEFAULT NULL,
@@ -43626,6 +43628,7 @@ CREATE TABLE IF NOT EXISTS `vendor_finance_info` (
   `stock_exchange_listed` tinyint(1) DEFAULT NULL,
   `stock_exchange_name` varchar(20) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
 
 -- --------------------------------------------------------
 
@@ -43658,6 +43661,7 @@ CREATE TABLE IF NOT EXISTS `vendor_general_details` (
   `website` varchar(30) DEFAULT NULL,
   `overseas_office` varchar(250) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
