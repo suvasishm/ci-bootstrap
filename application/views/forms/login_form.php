@@ -2,15 +2,11 @@
 	<div class="col-md-12">
 		<div class="row">
 			<div class="col-md-6 mx-auto">
-
 				<?php
-				echo "<div class='alert-success'>";
 				if (isset($message_display)) {
-					echo $message_display;
+					echo "<div class='alert-success'>" . $message_display . "</div><br/>";
 				}
-				echo "</div><br/>";
 				?>
-
 				<!-- form card login -->
 				<div class="card rounded-0">
 					<div class="card-header">
@@ -18,26 +14,28 @@
 					</div>
 					<div class="card-body">
 						<?php
-						echo "<div class='alert-danger'>";
 						if (isset($error_message)) {
-							echo $error_message;
+							echo "<div class='alert-danger'>" . $error_message . "</div><br/>";
 						}
-						echo "</div><br/>";
 						?>
 						<form class="form" role="form" id="login-form" action="/login" method="POST">
 							<div class="form-group">
 								<label for="email">Username</label>
-								<input type="text" class="form-control form-control-lg rounded-0" name="email" id="email" placeholder="Email" required>
+								<input type="text" class="form-control form-control-lg rounded-0" name="email"
+									   id="email" placeholder="Email" required>
 							</div>
 							<div class="form-group">
 								<label for="password">Password</label>
-								<input type="password" class="form-control form-control-lg rounded-0" id="password" name="password" required>
+								<input type="password" class="form-control form-control-lg rounded-0" id="password"
+									   name="password" required>
 							</div>
 							<div class="form-check">
 								<input type="checkbox" class="form-check-input" name="remember" id="remember">
 								<label class="form-check-label" for="remember">Remember Me</label>
 							</div>
-							<button type="submit" class="btn btn-success btn-lg float-right" id="login-submit" name="login-submit">Login</button>
+							<button type="submit" class="btn btn-success btn-lg float-right" id="login-submit"
+									name="login-submit">Login
+							</button>
 						</form>
 					</div>
 					<!--/card-block-->

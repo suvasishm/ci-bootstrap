@@ -1,4 +1,5 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * User: suvasish mondal (suvasishmndl@gmail.com)
  * Date: 30-Mar-18
