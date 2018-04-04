@@ -36,7 +36,7 @@ class Admin extends CI_Controller
 		$this->load->view('template/footer');
 	}
 
-	public function create_user()
+	public function register()
 	{
 		// only super admin can perform this
 		//Todo: check if super admin user performing this

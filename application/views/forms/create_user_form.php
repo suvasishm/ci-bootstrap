@@ -27,7 +27,7 @@ if (!$this->session->logged_in || $this->session->user_type >= USER_VENDOR) {
 						<h3 class="mb-0">Create New User</h3>
 					</div>
 					<div class="card-body">
-						<form class="form" role="form" id="admin-register-form" action="/admin/create_user"
+						<form class="form" role="form" id="admin-register-form" action="/admin/register"
 							  method="POST">
 							<div class="form-group">
 								<label for="title">User Type</label>

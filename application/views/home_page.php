@@ -11,6 +11,6 @@ if ($this->session->logged_in) {
 	<div>Your Email is <?php echo $email ?></div>
 	<div>Account type <?php echo $user_type ?></div>
 	<?php if ($user_type < USER_VENDOR)
-		echo "<div><b><a href='/admin/create_user_form'>Create a New User</a></b></div>";
+		echo "<div><b><a href='/admin/create_user'>Create a New User</a></b></div>";
 	?>
 </div>

@@ -15,17 +15,18 @@ class Vendor extends CI_Controller
 		//$this->load->model('vendor_model');
 	}
 
-	public function load_vendor_signup_form($data)
+	public function load_vendor_signup_form($data = array())
 	{
+		unset(
+			$_SESSION['name'],
+			$_SESSION['email'],
+			$_SESSION['user_type'],
+			$_SESSION['logged_in']
+		);
+
 		$this->load->view('template/header', $data);
 		$this->load->view('forms/vendor_signup_form');
 		$this->load->view('template/footer');
-	}
-
-	public function signup()
-	{
-		$data['message_display'] = 'Fill in details here';
-		$this->load_vendor_signup_form($data);
 	}
 
 	// Validate and store registration data in database

@@ -57,11 +57,11 @@ $route['logout'] = 'user/logout';
 $route['unauthorized'] = 'user/unauthorized';
 
 // admin
-$route['admin/create_user_form'] = 'admin/load_create_user_form';
-$route['admin/create_user'] = 'admin/create_user';
+$route['admin/create_user'] = 'admin/load_create_user_form';
+$route['admin/register'] = 'admin/register';
 
 // vendor
-$route['vendor/signup'] = 'vendor/signup';
+$route['vendor/signup'] = 'vendor/load_vendor_signup_form';
 $route['vendor/register'] = 'vendor/register';
 
 $route['404_override'] = '';
