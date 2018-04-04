@@ -83,3 +83,12 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+defined('USER_SUPER_ADMIN')    OR define('USER_SUPER_ADMIN', 1);
+defined('USER_ADMIN')          OR define('USER_ADMIN', 2);
+defined('USER_VENDOR')         OR define('USER_VENDOR', 3);
+/*
+defined('USER_SUPER_ADMIN_NAME')    OR define('USER_SUPER_ADMIN_NAME', 'SUPERADMIN');
+defined('USER_ADMIN_NAME')          OR define('USER_ADMIN_NAME', 'ADMIN');
+defined('USER_VENDOR_NAME')         OR define('USER_VENDOR_NAME', 'VENDOR');*/
+
