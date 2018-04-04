@@ -55,6 +55,7 @@ Class User extends CI_Controller
 			$result = $this->user_model->login($data);
 
 			if ($result) {
+				$this->session->title_key = $result[0]->title_key;
 				$this->session->name = $result[0]->name;
 				$this->session->email = $result[0]->email;
 				$this->session->user_type = $result[0]->user_type;
@@ -73,6 +74,7 @@ Class User extends CI_Controller
 	public function logout()
 	{
 		unset(
+			$_SESSION['title_key'],
 			$_SESSION['name'],
 			$_SESSION['email'],
 			$_SESSION['user_type'],

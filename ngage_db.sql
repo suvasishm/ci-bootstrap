@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 04, 2018 at 03:59 AM
+-- Generation Time: Apr 04, 2018 at 03:05 PM
 -- Server version: 5.7.19
--- PHP Version: 5.6.31
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -43551,41 +43551,23 @@ INSERT INTO `region` (`id`, `country_id`, `region`) VALUES
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title_key` tinyint(1) NOT NULL,
   `name` varchar(30) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
   `user_type` int(1) NOT NULL,
-  `activation_status` tinyint(1) DEFAULT NULL,
+  `activation_status` tinyint(1) NOT NULL,
   PRIMARY KEY (`user_id`,`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `name`, `email`, `password`, `user_type`, `activation_status`) VALUES
-(1, 'Suvasish Mondal', 'suvasishmndl@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_type`
---
-
-DROP TABLE IF EXISTS `user_type`;
-CREATE TABLE IF NOT EXISTS `user_type` (
-  `id` int(1) NOT NULL,
-  `type` varchar(20) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `user_type`
---
-
-INSERT INTO `user_type` (`id`, `type`) VALUES
-(1, 'SUPERADMIN'),
-(2, 'ADMIN'),
-(3, 'VENDOR');
+INSERT INTO `user` (`user_id`, `title_key`, `name`, `email`, `password`, `user_type`, `activation_status`) VALUES
+(1, 1, 'Suvasish Mondal', 'suvasishmndl@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 1),
+(2, 1, 'Partha Saha', 'pps@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 2, 1),
+(3, 5, 'Kaira Setty', 'kaira@test.com', NULL, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -43603,10 +43585,17 @@ CREATE TABLE IF NOT EXISTS `vendor_business_details` (
   `cert_validity` varchar(15) DEFAULT NULL,
   `cert_issuing_authority` varchar(20) DEFAULT NULL,
   `cert_year` varchar(15) DEFAULT NULL,
-  `firm_type` varchar(20) DEFAULT NULL,
-  `business_type` varchar(20) DEFAULT NULL,
+  `firm_type` smallint(2) DEFAULT NULL,
+  `business_type` smallint(2) DEFAULT NULL,
   `workshop_address` varchar(250) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `vendor_business_details`
+--
+
+INSERT INTO `vendor_business_details` (`user_id`, `business_with_ngage`, `engagement_details`, `iso_certified`, `cert_type`, `cert_validity`, `cert_issuing_authority`, `cert_year`, `firm_type`, `business_type`, `workshop_address`) VALUES
+(3, 1, '', 1, '', '', '', '', 2, 3, '');
 
 -- --------------------------------------------------------
 
@@ -43617,18 +43606,24 @@ CREATE TABLE IF NOT EXISTS `vendor_business_details` (
 DROP TABLE IF EXISTS `vendor_finance_info`;
 CREATE TABLE IF NOT EXISTS `vendor_finance_info` (
   `user_id` int(11) NOT NULL,
-  `bank_name` varchar(50) DEFAULT NULL,
-  `ben_acc_name` varchar(50) DEFAULT NULL,
-  `ben_acc_number` varchar(30) DEFAULT NULL,
-  `code_type` varchar(20) DEFAULT NULL,
+  `bank_name` varchar(50) NOT NULL,
+  `ben_acc_name` varchar(50) NOT NULL,
+  `ben_acc_number` varchar(30) NOT NULL,
+  `bank_code_type` tinyint(1) NOT NULL,
   `bank_code` varchar(20) DEFAULT NULL,
   `ben_address` varchar(250) DEFAULT NULL,
   `annual_turn_over` varchar(20) DEFAULT NULL,
-  `trading_currency` varchar(20) DEFAULT NULL,
+  `trading_currency` smallint(2) NOT NULL,
   `stock_exchange_listed` tinyint(1) DEFAULT NULL,
   `stock_exchange_name` varchar(20) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `vendor_finance_info`
+--
+
+INSERT INTO `vendor_finance_info` (`user_id`, `bank_name`, `ben_acc_name`, `ben_acc_number`, `bank_code_type`, `bank_code`, `ben_address`, `annual_turn_over`, `trading_currency`, `stock_exchange_listed`, `stock_exchange_name`) VALUES
+(3, 'HDFC', 'Kaira Setty', '589658523247892', 2, 'HDFC567900P', '', '10000000', 2, 1, '');
 
 -- --------------------------------------------------------
 
@@ -43640,7 +43635,6 @@ DROP TABLE IF EXISTS `vendor_general_details`;
 CREATE TABLE IF NOT EXISTS `vendor_general_details` (
   `user_id` int(11) DEFAULT NULL,
   `src_ref` varchar(20) DEFAULT NULL,
-  `title` varchar(5) DEFAULT NULL,
   `house_no` varchar(20) DEFAULT NULL,
   `addressline_1` varchar(50) DEFAULT NULL,
   `addressline_2` varchar(30) DEFAULT NULL,
@@ -43662,6 +43656,12 @@ CREATE TABLE IF NOT EXISTS `vendor_general_details` (
   `overseas_office` varchar(250) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `vendor_general_details`
+--
+
+INSERT INTO `vendor_general_details` (`user_id`, `src_ref`, `house_no`, `addressline_1`, `addressline_2`, `addressline_3`, `country_id`, `state_id`, `city_id`, `postal_code`, `po_box_no`, `mobile_no`, `telephone_1`, `telephone_2`, `fax_no`, `contact_person_name`, `contact_person_no`, `contact_person_desig`, `contact_person_email`, `website`, `overseas_office`) VALUES
+(3, '', '40/2', 'Bidhan Sarani', '', '', NULL, NULL, NULL, 89698, '20/4', '789654258', '', '', '', 'Mohit Setty', '8963369984', '', 'mohit@test.com', '', '');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

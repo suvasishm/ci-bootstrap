@@ -1,5 +1,5 @@
 <?php
-if (!$this->session->logged_in || $this->session->user_type >= USER_VENDOR) {
+if (!$this->session->logged_in || $this->session->user_type > 2) {
 	header("location: /unauthorized");
 }
 ?>
@@ -27,17 +27,32 @@ if (!$this->session->logged_in || $this->session->user_type >= USER_VENDOR) {
 						<h3 class="mb-0">Create New User</h3>
 					</div>
 					<div class="card-body">
-						<form class="form" role="form" id="admin-register-form" action="/admin/register"
-							  method="POST">
+						<form class="form" role="form" id="admin-register-form" action="/admin/register" method="POST">
 							<div class="form-group">
 								<label for="title">User Type</label>
-								<select class="form-control  col-3" name="user_type" id="user_type" required>
+								<select class="form-control col-3" name="user_type" id="user_type" required>
 									<?php
-									if (isset($user_type_id)) {
-										echo "<option value=" . $user_type_id . ">" . $user_type_name . "</option>";
+									if (isset($user_type)) {
+										echo "<option value=" . $user_type . ">" . USER_TYPES[$user_type] . "</option>";
 									} else {
-										foreach ($user_types as $user_type) {
-											echo "<option value=" . $user_type->id . ">" . $user_type->type . "</option>";
+										foreach (USER_TYPES as $id => $type) {
+											if ($id > 1) {
+												echo "<option value=" . $id . ">" . $type . "</option>";
+											}
+										}
+									}
+									?>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="title_key">Title</label>
+								<select class="form-control col-3" name="title_key" id="title_key" required>
+									<?php
+									if (isset($title_key)) {
+										echo "<option value=" . $title_key . ">" . USER_TITLES[$title_key] . "</option>";
+									} else {
+										foreach (USER_TITLES as $key => $value) {
+											echo "<option value=" . $key . ">" . $value . "</option>";
 										}
 									}
 									?>

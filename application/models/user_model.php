@@ -51,7 +51,7 @@ Class User_Model extends CI_Model
 		return $query;
 	}
 
-	public function get_user_types()
+	/*public function get_user_types()
 	{
 		$this->db->select('*');
 		$this->db->from('user_type');
@@ -79,6 +79,6 @@ Class User_Model extends CI_Model
 		}
 
 		return false;
-	}
+	}*/
 
 }

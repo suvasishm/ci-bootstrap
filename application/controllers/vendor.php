@@ -12,38 +12,74 @@ class Vendor extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		//$this->load->model('vendor_model');
 	}
 
 	public function load_vendor_signup_form($data = array())
 	{
 		unset(
+			$_SESSION['title_key'],
 			$_SESSION['name'],
 			$_SESSION['email'],
 			$_SESSION['user_type'],
 			$_SESSION['logged_in']
 		);
 
+		$data['title'] = 'Vendor Signup';
+
+		$data['title_key'] = 5;
+		$data['name'] = "Kaira Setty";
+		$data['house_no'] = "40/2";
+		$data['addressline_1'] = "Bidhan Sarani";
+		$data['postal_code'] = '89698';
+		$data['po_box_no'] = '20/4';
+		$data['email'] = "kaira@test.com";
+		$data['mobile_no'] = "789654258";
+		$data['contact_person_name'] = "Mohit Setty";
+		$data['contact_person_no'] = "8963369984";
+		$data['contact_person_email'] = "mohit@test.com";
+		$data['bank_name'] = "HDFC";
+		$data['ben_acc_name'] = "Kaira Setty";
+		$data['ben_acc_number'] = "589658523247892";
+		$data['ben_acc_number_confirm'] = $data['ben_acc_number'];
+		$data['bank_code_type'] = 2;
+		$data['bank_code'] = "HDFC567900P";
+		$data['annual_turn_over'] = "10000000";
+		$data['trading_currency'] = 2;
+		$data['business_with_ngage'] = 1;
+		$data['iso_certified'] = 1;
+		$data['stock_exchange_listed'] = 1;
+		$data['firm_type'] = 2;
+		$data['business_type'] = 3;
+
 		$this->load->view('template/header', $data);
-		$this->load->view('forms/vendor_signup_form');
+		$this->load->view('forms/vendor_signup_form', $data);
 		$this->load->view('template/footer');
 	}
 
 	// Validate and store registration data in database
 	public function register()
 	{
+		print_r($this->input->post);
 		// First, try to insert an entry into user table
 
 		// create user_model
 		$user_model = array(
-			'name' => $this->input->post('vendor_name'),
-			'email' => $this->input->post('vendor_email'),
-			'user_type' => USER_TYPE_VENDOR
+			'title_key' => $this->input->post('title_key'),
+			'name' => $this->input->post('name'),
+			'email' => $this->input->post('email'),
+			'user_type' => array_search('VENDOR', USER_TYPES),
+			'activation_status' => 0
 		);
 		// insert into user table
 		$user_id = $this->user_model->user_insert($user_model);
 		if (!$user_id) { // user with email already exists
 			$data['error_message'] = 'User with ' . $user_model['email'] . ' already exists. Use a different email id.';
+			$data = array_merge($data,
+				$user_model,
+				$this->get_vendor_general_model(''),
+				$this->get_vendor_business_model(''),
+				$this->get_vendor_business_model('')
+			);
 			$this->load_vendor_signup_form($data);
 			return false;
 		}
@@ -73,6 +109,14 @@ class Vendor extends CI_Controller
 			$this->abort_signup($user_id);
 			return false;
 		}
+
+		$this->registration_sucess();
+	}
+
+	public function registration_sucess() {
+		$this->load->view('template/header');
+		$this->load->view('vendor_registration_sucess_page');
+		$this->load->view('template/footer');
 	}
 
 	private function abort_signup($user_id)
@@ -88,7 +132,6 @@ class Vendor extends CI_Controller
 		$vendor_general_model = array(
 			'user_id' => $user_id,
 			'src_ref' => $this->input->post('src_ref'),
-			'title' => $this->input->post('title'),
 			'house_no' => $this->input->post('house_no'),
 			'addressline_1' => $this->input->post('addressline_1'),
 			'addressline_2' => $this->input->post('addressline_2'),
@@ -139,7 +182,7 @@ class Vendor extends CI_Controller
 			'bank_name' => $this->input->post('bank_name'),
 			'ben_acc_name' => $this->input->post('ben_acc_name'),
 			'ben_acc_number' => $this->input->post('ben_acc_number'),
-			'code_type' => $this->input->post('code_type'),
+			'bank_code_type' => $this->input->post('bank_code_type'),
 			'bank_code' => $this->input->post('bank_code'),
 			'ben_address' => $this->input->post('ben_address'),
 			'annual_turn_over' => $this->input->post('annual_turn_over'),
