@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 	<?php
-	/*if ($this->session->logged_in) {
-		header("location: http://localhost/home");
+	/*if (!$this->session->logged_in) {
+		header("location: http://localhost/login");
 	}*/
 	?>
 	<head>
@@ -10,8 +10,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<!--<title><?php /*echo $title; */?></title>-->
-		<title>NGAGE</title>
+		<title>NGAGE | <?php echo $title; ?></title>
 
 		<!-- Bootstrap -->
 		<!--<link href="<?php /*echo base_url(); */?>assets/css/bootstrap.css" rel="stylesheet">-->
@@ -27,4 +26,13 @@
 		<![endif]-->
   	</head>
   	<body>
+		<?php
+		if ($this->session->logged_in) {
+			echo "<div class='container align-content-lg-end'><div> Hello, <b><i>".$this->session->name."</i></b></div><div><b><a href='/'>Home</a>|<a href='/logout'>Logout</a></b></div></div>";
+		} else {
+			echo "<div class='container align-content-lg-end'><b><a href='/'>Home</a></b></div>";
+		}
+		?>
+
 		<div class="container py-5">
+

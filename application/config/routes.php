@@ -54,6 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'user';
 $route['login'] = 'user/login';
 $route['logout'] = 'user/logout';
+$route['unauthorized'] = 'user/unauthorized';
 
 // admin
 $route['admin/create_user_form'] = 'admin/load_create_user_form';

@@ -1,4 +1,5 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 Class User extends CI_Controller
 {
@@ -81,6 +82,13 @@ Class User extends CI_Controller
 		$data['message_display'] = 'Successfully Logout';
 		$data['title'] = 'Logout';
 		$this->load_login_form($data);
+	}
+
+	public function unauthorized()
+	{
+		$this->load->view('template/header');
+		$this->load->view('unauthorized_page');
+		$this->load->view('template/footer');
 	}
 
 }

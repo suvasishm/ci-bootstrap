@@ -20,13 +20,10 @@ Class User_Model extends CI_Model
 
 	public function login($data)
 	{
-		$this->db->select('*');
-		$this->db->from('user');
-		$this->db->where('email', $data['email']);
-		$this->db->where('password', $data['password']);
-		$this->db->where('activation_status', 1);
-		$this->db->limit(1);
-		$query = $this->db->get();
+		$query = $this->db->get_where('user', array(
+			'email' => $data['email'],
+			'password' => $data['password'],
+			'activation_status' => 1));
 
 		if ($query->num_rows() == 1) {
 			return $query->result();
@@ -38,17 +35,12 @@ Class User_Model extends CI_Model
 	// Read data from database to show data in admin page
 	public function read_user_information($email)
 	{
-		$this->db->select('*');
-		$this->db->from('user');
-		$this->db->where('email', $email);
-		$this->db->limit(1);
-		$query = $this->db->get();
-
+		$query = $this->db->get_where('user', array('email' => $email));
 		if ($query->num_rows() == 1) {
 			return $query->result();
-		} else {
-			return false;
 		}
+
+		return false;
 	}
 
 	public function user_delete($user_id)
@@ -59,7 +51,22 @@ Class User_Model extends CI_Model
 		return $query;
 	}
 
-	public function get_user_type_name($id) {
+	public function get_user_types()
+	{
+		$this->db->select('*');
+		$this->db->from('user_type');
+		$this->db->where('id !=', 1); // we don't want superadmin to appear
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		}
+
+		return false;
+	}
+
+	public function get_user_type_name($id)
+	{
 		$this->db->select('*');
 		$this->db->from('user_type');
 		$this->db->where('id', $id);
@@ -67,14 +74,11 @@ Class User_Model extends CI_Model
 		$query = $this->db->get();
 
 		if ($query->num_rows() == 1) {
-			return ($query->result())[0]->type;
-		} else {
-			return false;
+			$result = $query->result();
+			return $result[0]->type;
 		}
-	}
 
-	public static function get_user_type($id) {
-		return get_user_type_name($id);
+		return false;
 	}
 
 }
