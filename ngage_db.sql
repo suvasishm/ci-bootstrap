@@ -39827,7 +39827,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `loadability_unit` varchar(10) NOT NULL,
   `package_desciption` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -43563,7 +43563,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `user_type` int(1) NOT NULL,
   `activation_status` tinyint(1) NOT NULL,
   PRIMARY KEY (`user_id`,`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
@@ -43593,8 +43593,8 @@ CREATE TABLE IF NOT EXISTS `vendor_business_details` (
   `firm_type` smallint(2) DEFAULT NULL,
   `business_type` smallint(2) DEFAULT NULL,
   `workshop_address` varchar(250) NOT NULL,
-  FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`) ON DELETE CASCADE
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  CONSTRAINT `FK_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vendor_business_details`
@@ -43622,8 +43622,8 @@ CREATE TABLE IF NOT EXISTS `vendor_finance_info` (
   `trading_currency` smallint(2) NOT NULL,
   `stock_exchange_listed` tinyint(1) DEFAULT NULL,
   `stock_exchange_name` varchar(20) DEFAULT NULL,
-  FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`) ON DELETE CASCADE
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  CONSTRAINT `FK_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vendor_finance_info`
@@ -43661,8 +43661,8 @@ CREATE TABLE IF NOT EXISTS `vendor_general_details` (
   `contact_person_email` varchar(30) DEFAULT NULL,
   `website` varchar(30) DEFAULT NULL,
   `overseas_office` varchar(250) DEFAULT NULL,
-  FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`) ON DELETE CASCADE
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  CONSTRAINT `FK_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vendor_general_details`
