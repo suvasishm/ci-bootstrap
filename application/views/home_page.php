@@ -11,6 +11,6 @@ if ($this->session->logged_in) {
 	<div>Your Email is <?php echo $email ?></div>
 	<div>Account type <?php echo USER_TYPES[$user_type] ?></div>
 	<?php if ($user_type < 3)
-		echo "<div><b><a href='/admin/create_user'>Create a New User</a></b></div>";
+		echo "<div><b><a href='/admin/create-user'>Create a New User</a></b></div>";
 	?>
 </div>

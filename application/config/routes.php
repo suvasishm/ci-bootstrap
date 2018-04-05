@@ -57,7 +57,7 @@ $route['logout'] = 'user/logout';
 $route['unauthorized'] = 'user/unauthorized';
 
 // admin
-$route['admin/create_user'] = 'admin/load_create_user_form';
+$route['admin/create-user'] = 'admin/load_create_user_form';
 $route['admin/register'] = 'admin/register';
 
 // vendor

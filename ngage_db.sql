@@ -43592,7 +43592,8 @@ CREATE TABLE IF NOT EXISTS `vendor_business_details` (
   `cert_year` varchar(15) DEFAULT NULL,
   `firm_type` smallint(2) DEFAULT NULL,
   `business_type` smallint(2) DEFAULT NULL,
-  `workshop_address` varchar(250) NOT NULL
+  `workshop_address` varchar(250) NOT NULL,
+  FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`) ON DELETE CASCADE
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -43620,7 +43621,8 @@ CREATE TABLE IF NOT EXISTS `vendor_finance_info` (
   `annual_turn_over` varchar(20) DEFAULT NULL,
   `trading_currency` smallint(2) NOT NULL,
   `stock_exchange_listed` tinyint(1) DEFAULT NULL,
-  `stock_exchange_name` varchar(20) DEFAULT NULL
+  `stock_exchange_name` varchar(20) DEFAULT NULL,
+  FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`) ON DELETE CASCADE
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -43658,7 +43660,8 @@ CREATE TABLE IF NOT EXISTS `vendor_general_details` (
   `contact_person_desig` varchar(20) DEFAULT NULL,
   `contact_person_email` varchar(30) DEFAULT NULL,
   `website` varchar(30) DEFAULT NULL,
-  `overseas_office` varchar(250) DEFAULT NULL
+  `overseas_office` varchar(250) DEFAULT NULL,
+  FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`) ON DELETE CASCADE
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
