@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 /*
 |--------------------------------------------------------------------------
 | Display Debug backtrace
@@ -11,6 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 defined('SHOW_DEBUG_BACKTRACE') OR define('SHOW_DEBUG_BACKTRACE', TRUE);
+
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes
@@ -28,6 +30,7 @@ defined('FILE_READ_MODE')  OR define('FILE_READ_MODE', 0644);
 defined('FILE_WRITE_MODE') OR define('FILE_WRITE_MODE', 0666);
 defined('DIR_READ_MODE')   OR define('DIR_READ_MODE', 0755);
 defined('DIR_WRITE_MODE')  OR define('DIR_WRITE_MODE', 0755);
+
 /*
 |--------------------------------------------------------------------------
 | File Stream Modes
@@ -44,6 +47,7 @@ defined('FOPEN_WRITE_CREATE')                   OR define('FOPEN_WRITE_CREATE', 
 defined('FOPEN_READ_WRITE_CREATE')              OR define('FOPEN_READ_WRITE_CREATE', 'a+b');
 defined('FOPEN_WRITE_CREATE_STRICT')            OR define('FOPEN_WRITE_CREATE_STRICT', 'xb');
 defined('FOPEN_READ_WRITE_CREATE_STRICT')       OR define('FOPEN_READ_WRITE_CREATE_STRICT', 'x+b');
+
 /*
 |--------------------------------------------------------------------------
 | Exit Status Codes
@@ -79,22 +83,3 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
-
-/*NGAGE CONSTANTS*/
-defined('USER_TYPES') 		  OR define('USER_TYPES', array(1 => 'SUPERADMIN', 2 => 'ADMIN', 3 => 'VENDOR'));
-defined('USER_TITLES')         OR define('USER_TITLES', array(1 => 'Mr.', 2 => 'Mrs.', 3 => 'Ms.', 4 => 'Miss', 5 => 'Dr.'));
-
-defined('BANK_CODE_TYPES')     OR define('BANK_CODE_TYPES', array(1 => 'IFSC', 2 => 'SWIFT'));
-defined('TRADING_CURRENCY')    OR define('TRADING_CURRENCY', array(1 => 'INR:: Indian Rupee', 2 => 'RMB:: Chinese Renminbi'));
-
-defined('FIRM_TYPES')          OR define('FIRM_TYPES', array(1 => 'TYPE 1', 2 => 'TYPE 2'));
-defined('BUSINESS_TYPES')      OR define('BUSINESS_TYPES', array(1 => 'MANUFACTURER', 2 => 'AGENT/DEALER', 3 => 'STOCKIST', 4 => 'SERVICE PROVIDER', 4 => 'EPC', 5 => 'SUPPLY & SERVICE PROVIDER'));
-
-defined('COUNTRIES')           OR define('COUNTRIES', array(49 => 'China', 109 => 'Hong Kong (SAR)', 113 => 'India', 114 => 'Indonesia', 260 => 'Vietnam'));
-
-
-
-
-
-
-
