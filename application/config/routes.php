@@ -57,12 +57,16 @@ $route['logout'] = 'user/logout';
 $route['unauthorized'] = 'user/unauthorized';
 
 // admin
-$route['admin/create_user_form'] = 'admin/load_create_user_form';
-$route['admin/create_user'] = 'admin/create_user';
+$route['admin/create-user'] = 'admin/load_create_user_form';
+$route['admin/register'] = 'admin/register';
 
 // vendor
-$route['vendor/signup'] = 'vendor/signup';
+$route['vendor/signup'] = 'vendor/load_vendor_signup_form';
 $route['vendor/register'] = 'vendor/register';
+
+// city
+$route['search/regions/(:num)'] = 'city/fetch_regions/$1';
+$route['search/cities/(:num)'] = 'city/fetch_cities/$1';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

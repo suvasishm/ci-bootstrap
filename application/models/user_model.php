@@ -45,13 +45,14 @@ Class User_Model extends CI_Model
 
 	public function user_delete($user_id)
 	{
-		$tables = array('user', 'vendor_general_details', 'vendor_business_details', 'vendor_finance_info');
+		// deleting from 'user' table will delete from all referenced table. delete cascade enabled.
+		$tables = array('user'/*, 'vendor_general_details', 'vendor_business_details', 'vendor_finance_info'*/);
 		$this->db->where('user_id', $user_id);
 		$query = $this->db->delete($tables);
 		return $query;
 	}
 
-	public function get_user_types()
+	/*public function get_user_types()
 	{
 		$this->db->select('*');
 		$this->db->from('user_type');
@@ -79,6 +80,6 @@ Class User_Model extends CI_Model
 		}
 
 		return false;
-	}
+	}*/
 
 }

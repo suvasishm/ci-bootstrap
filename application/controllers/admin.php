@@ -11,18 +11,12 @@ class Admin extends CI_Controller
 
 	public function load_create_user_form($data = array())
 	{
-		$data['title'] = "Create a New User";
+		$data['title'] = "Create/Update a User";
 
-		/*$data['user_type_id'] = 2;
+		/*$data['user_type'] = 2;
+		$data['title_key'] = 5;
 		$data['name'] = 'Test Name';
 		$data['email'] = 'some@some.com';*/
-
-		if (isset($data['user_type_id']) && isset($data['name']) && isset($data['email'])) {
-			$data['user_type_name'] = $this->user_model->get_user_type_name($data['user_type_id']);
-		} else {
-			// populate data for dropdown
-			$data['user_types'] = $this->user_model->get_user_types();
-		}
 
 		$this->load->view('template/header', $data);
 		$this->load->view('forms/create_user_form', $data);
@@ -36,13 +30,14 @@ class Admin extends CI_Controller
 		$this->load->view('template/footer');
 	}
 
-	public function create_user()
+	public function register()
 	{
 		// only super admin can perform this
 		//Todo: check if super admin user performing this
 		//Todo: check both password should match
 
 		$user_model = array(
+			'title_key' => $this->input->post('title_key'),
 			'name' => $this->input->post('name'),
 			'email' => $this->input->post('email'),
 			'password' => md5($this->input->post('password')),
