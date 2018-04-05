@@ -50,9 +50,23 @@ echo "</div><br/>";
 		</div>
 
 		<div class="form-group col-md-6">
-			<label for="country">Country</label>
-			<select id="countryId" class="form-control countries" name="country">
-				<option value="">Select Country</option>
+			<label for="country_id">Country</label>
+			<select id="country_id" class="form-control countries" name="country_id" required>
+				<?php
+				if (isset($country_id)) {
+					echo "<option value=" . $country_id . ">" . COUNTRIES[$country_id] . "</option>";
+					foreach (COUNTRIES as $key => $value) {
+						if ($key != $country_id) {
+							echo "<option value=" . $key . ">" . $value . "</option>";
+						}
+					}
+				} else {
+					echo "<option value='0'>Select Country</option>";
+					foreach (COUNTRIES as $key => $value) {
+						echo "<option value=" . $key . ">" . $value . "</option>";
+					}
+				}
+				?>
 			</select>
 		</div>
 	</div>
@@ -65,9 +79,9 @@ echo "</div><br/>";
 		</div>
 
 		<div class="form-group col-md-6">
-			<label for="state">State/Region</label>
-			<select id="stateId" class="form-control states" name="state">
-				<option value="">Select State</option>
+			<label for="state_id">State/Region</label>
+			<select id="state_id" class="form-control states" id="state_id" name="state_id" required>
+				<option value="0">Select State/Region</option>
 			</select>
 		</div>
 	</div>
@@ -81,8 +95,8 @@ echo "</div><br/>";
 
 		<div class="form-group col-md-6">
 			<label for="state">City</label>
-			<select id="cityId" class="form-control cities" name="city">
-				<option value="">Select City</option>
+			<select id="city_id" class="form-control cities" name="city_id" id="city_id">
+				<option value="0">Select City</option>
 			</select>
 		</div>
 	</div>
@@ -290,6 +304,11 @@ echo "</div><br/>";
 				<?php
 				if (isset($firm_type)) {
 					echo "<option value=" . $firm_type . ">" . FIRM_TYPES[$firm_type] . "</option>";
+					foreach (FIRM_TYPES as $key => $value) {
+						if ($key != $firm_type) {
+							echo "<option value=" . $key . ">" . $value . "</option>";
+						}
+					}
 				} else {
 					echo "<option>Select An Option</option>";
 					foreach (FIRM_TYPES as $key => $value) {
@@ -311,6 +330,11 @@ echo "</div><br/>";
 				<?php
 				if (isset($business_type)) {
 					echo "<option value=" . $business_type . ">" . BUSINESS_TYPES[$business_type] . "</option>";
+					foreach (BUSINESS_TYPES as $key => $value) {
+						if ($key != $business_type) {
+							echo "<option value=" . $key . ">" . $value . "</option>";
+						}
+					}
 				} else {
 					echo "<option>Select An Option</option>";
 					foreach (BUSINESS_TYPES as $key => $value) {
@@ -373,6 +397,11 @@ echo "</div><br/>";
 				<?php
 				if (isset($bank_code_type)) {
 					echo "<option value=" . $bank_code_type . ">" . BANK_CODE_TYPES[$bank_code_type] . "</option>";
+					foreach (BANK_CODE_TYPES as $key => $value) {
+						if ($key != $bank_code_type) {
+							echo "<option value=" . $key . ">" . $value . "</option>";
+						}
+					}
 				} else {
 					echo "<option>Select An Option</option>";
 					foreach (BANK_CODE_TYPES as $key => $value) {
@@ -422,6 +451,11 @@ echo "</div><br/>";
 				<?php
 				if (isset($trading_currency)) {
 					echo "<option value=" . $trading_currency . ">" . TRADING_CURRENCY[$trading_currency] . "</option>";
+					foreach (TRADING_CURRENCY as $key => $value) {
+						if ($key != $trading_currency) {
+							echo "<option value=" . $key . ">" . $value . "</option>";
+						}
+					}
 				} else {
 					echo "<option>Select An Option</option>";
 					foreach (TRADING_CURRENCY as $key => $value) {

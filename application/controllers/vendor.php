@@ -32,6 +32,7 @@ class Vendor extends CI_Controller
 		$data['addressline_1'] = "Bidhan Sarani";
 		$data['postal_code'] = '89698';
 		$data['po_box_no'] = '20/4';
+		//$data['country_id'] = 49;
 		$data['email'] = "kaira@test.com";
 		$data['mobile_no'] = "789654258";
 		$data['contact_person_name'] = "Mohit Setty";
@@ -115,7 +116,7 @@ class Vendor extends CI_Controller
 
 	public function registration_sucess() {
 		$this->load->view('template/header');
-		$this->load->view('vendor_registration_sucess_page');
+		$this->load->view('vendor_registration_success');
 		$this->load->view('template/footer');
 	}
 

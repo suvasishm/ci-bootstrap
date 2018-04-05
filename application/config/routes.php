@@ -64,5 +64,9 @@ $route['admin/register'] = 'admin/register';
 $route['vendor/signup'] = 'vendor/load_vendor_signup_form';
 $route['vendor/register'] = 'vendor/register';
 
+// city
+$route['search/regions/(:num)'] = 'city/fetch_regions/$1';
+$route['search/cities/(:num)'] = 'city/fetch_cities/$1';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
