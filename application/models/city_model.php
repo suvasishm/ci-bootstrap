@@ -50,5 +50,41 @@ Class City_Model extends CI_Model
 		return false;
 	}
 
+	public function get_region_name($country_id, $region_id)
+	{
+
+		$this->db->select('region');
+		$this->db->from('region');
+		$this->db->where('id', $region_id);
+		$this->db->where('country_id', $country_id);
+
+		$query = $this->db->get();
+
+		if ($query->num_rows() == 1) {
+			$result = $query->result();
+			return $result[0]->region;
+		}
+
+		return false;
+	}
+
+	public function get_city_name($country_id, $region_id, $city_id)
+	{
+
+		$this->db->select('city');
+		$this->db->from('city');
+		$this->db->where('id', $city_id);
+		$this->db->where('region_id', $region_id);
+		$this->db->where('country_id', $country_id);
+
+		$query = $this->db->get();
+
+		if ($query->num_rows() == 1) {
+			$result = $query->result();
+			return $result[0]->city;
+		}
+
+		return false;
+	}
 
 }

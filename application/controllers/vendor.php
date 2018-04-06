@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * User: suvasish mondal (suvasishmndl@gmail.com)
  * Date: 30-Mar-18
  * Time: 1:52 PM
  */
-
 class Vendor extends CI_Controller
 {
 
@@ -32,7 +32,9 @@ class Vendor extends CI_Controller
 		$data['addressline_1'] = "Bidhan Sarani";
 		$data['postal_code'] = '89698';
 		$data['po_box_no'] = '20/4';
-		//$data['country_id'] = 49;
+		$data['country_id'] = 113;
+		$data['state_id'] = 2194;
+		//$data['city_id'] = 6452;
 		$data['email'] = "kaira@test.com";
 		$data['mobile_no'] = "789654258";
 		$data['contact_person_name'] = "Mohit Setty";
@@ -51,6 +53,26 @@ class Vendor extends CI_Controller
 		$data['stock_exchange_listed'] = 1;
 		$data['firm_type'] = 2;
 		$data['business_type'] = 3;
+
+		// if country_id is present, populate states for that country_id
+		if (isset($data['country_id'])) {
+			$this->load->model('city_model');
+			$data['states'] = $this->city_model->get_regions($data['country_id']);
+
+			// if state_id is present, populate cities for that state_id
+			if (isset($data['state_id'])) {
+				$data['cities'] = $this->city_model->get_cities($data['state_id']);
+
+				// set state/region name
+				$data['state_name'] = $this->city_model->get_region_name($data['country_id'], $data['state_id']);
+
+				// if city_id is present, find city's name
+				if (isset($data['city_id'])) {
+					// set city name
+					$data['city_name'] = $this->city_model->get_city_name($data['country_id'], $data['state_id'], $data['city_id']);
+				}
+			}
+		}
 
 		$this->load->view('template/header', $data);
 		$this->load->view('forms/vendor_signup_form', $data);
@@ -71,6 +93,7 @@ class Vendor extends CI_Controller
 			'user_type' => array_search('VENDOR', USER_TYPES),
 			'activation_status' => 0
 		);
+
 		// insert into user table
 		$user_id = $this->user_model->user_insert($user_model);
 		if (!$user_id) { // user with email already exists
@@ -111,10 +134,11 @@ class Vendor extends CI_Controller
 			return false;
 		}
 
-		$this->registration_sucess();
+		$this->registration_success();
 	}
 
-	public function registration_sucess() {
+	private function registration_success()
+	{
 		$this->load->view('template/header');
 		$this->load->view('vendor_registration_success');
 		$this->load->view('template/footer');

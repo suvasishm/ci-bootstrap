@@ -26,7 +26,13 @@ echo "</div><br/>";
 				<?php
 				if (isset($title_key)) {
 					echo "<option value=" . $title_key . ">" . USER_TITLES[$title_key] . "</option>";
+					foreach (USER_TITLES as $key => $value) {
+						if ($key != $title_key) {
+							echo "<option value=" . $key . ">" . $value . "</option>";
+						}
+					}
 				} else {
+					echo "<option>Select Title</option>";
 					foreach (USER_TITLES as $key => $value) {
 						echo "<option value=" . $key . ">" . $value . "</option>";
 					}
@@ -81,7 +87,21 @@ echo "</div><br/>";
 		<div class="form-group col-md-6">
 			<label for="state_id">State/Region</label>
 			<select id="state_id" class="form-control states" id="state_id" name="state_id" required>
-				<option value="0">Select State/Region</option>
+				<?php
+				if (isset($state_id) && isset($state_name)) {
+					echo "<option value=" . $state_id . ">" . $state_name . "</option>";
+					foreach ($states as $state) {
+						if ($state->id != $state_id) {
+							echo "<option value=" . $state->id . ">" . $state->region . "</option>";
+						}
+					}
+				} else {
+					echo "<option value='0'>Select State/Region</option>";
+					foreach ($states as $state) {
+						echo "<option value=" . $state->id . ">" . $state->region . "</option>";
+					}
+				}
+				?>
 			</select>
 		</div>
 	</div>
@@ -96,7 +116,21 @@ echo "</div><br/>";
 		<div class="form-group col-md-6">
 			<label for="state">City</label>
 			<select id="city_id" class="form-control cities" name="city_id" id="city_id">
-				<option value="0">Select City</option>
+				<?php
+				if (isset($city_id) && isset($city_name)) {
+					echo "<option value=" . $city_id . ">" . $city_name . "</option>";
+					foreach ($cities as $city) {
+						if ($city->id != $city_id) {
+							echo "<option value=" . $city->id . ">" . $city->city . "</option>";
+						}
+					}
+				} else {
+					echo "<option value='0'>Select City</option>";
+					foreach ($cities as $city) {
+						echo "<option value=" . $city->id . ">" . $city->city . "</option>";
+					}
+				}
+				?>
 			</select>
 		</div>
 	</div>
